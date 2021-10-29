@@ -4,15 +4,31 @@
 package cheetah.digital
 
 import cheetah.digital.verticles.BootStrapVerticle
+import groovy.transform.CompileStatic
+import io.vertx.core.AsyncResult
+import io.vertx.core.Handler
 import io.vertx.core.Vertx
 
+import java.util.logging.Logger
+
+import static cheetah.digital.App.*
+
+@CompileStatic
 class App {
+    static Logger logger = Logger.getLogger("App")
     String getGreeting() {
         return 'Hello World!'
     }
 
     static void main(String[] args) {
         println new App().greeting
-        Vertx.vertx().deployVerticle(new BootStrapVerticle())
+        Vertx.vertx().deployVerticle(new BootStrapVerticle(), App::getHandleDeployment)
+    }
+
+    static void getHandleDeployment(AsyncResult<String> handler) {
+        if(handler.succeeded()) {
+            logger.info("Deployed verticle ${handler.result()}")
+        }
+
     }
 }

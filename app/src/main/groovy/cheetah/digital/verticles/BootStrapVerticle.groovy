@@ -1,39 +1,39 @@
 package cheetah.digital.verticles
 
 import cheetah.digital.services.TestService
+import groovy.transform.CompileStatic
 import io.micronaut.context.BeanContext
 import io.vertx.core.AbstractVerticle
-import org.redisson.api.RList
-import org.redisson.api.RListReactive
-import org.redisson.api.RedissonClient
-import org.redisson.api.RedissonReactiveClient
-
+import redis.clients.jedis.Jedis
+import redis.clients.jedis.JedisPool
+@CompileStatic
 class BootStrapVerticle extends AbstractVerticle {
     TestService testService
-    RedissonClient redissonClient;
+    JedisPool jedisPool
 
     BootStrapVerticle() {
         BeanContext beanContext = BeanContext.run()
         this.testService = beanContext.getBean(TestService.class);
-        this.redissonClient = beanContext.getBean(RedissonClient.class)
+        this.jedisPool = beanContext.getBean(JedisPool.class)
     }
     void start() {
         vertx.setPeriodic(1000, id -> {
             // This handler will get called every second
             System.out.println("timer fired!");
             this.testService.printme()
-            println this.redissonClient.getId()
 
-            RList<String> rList = redissonClient.getList("kerrieList")
-            rList.
-            rList.add(25, "Kerrie-channer")
-           // rList.add(22, "Thomas Mafela")
-            println "startting"
-            println rList.size()
-
-            println "Ending"
-
+            try ( Jedis jedis = jedisPool.getResource()) {
+                jedis.set("kerrie", "Mafela thomas Alexandra")
+                println "startting"
+                println jedis.get("kerrie")
+                println "Ending"
+            }
 
         });
+    }
+
+    void stop() {
+        println("Closing the jedispool")
+        this.jedisPool.close()
     }
 }
