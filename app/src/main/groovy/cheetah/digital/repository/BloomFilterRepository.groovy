@@ -6,5 +6,5 @@ interface BloomFilterRepository <T> {
 
     boolean addObject(T t)
 
-    int count()
+    long count()
 }
