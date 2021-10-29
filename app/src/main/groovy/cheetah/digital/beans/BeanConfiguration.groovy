@@ -33,8 +33,9 @@ class BeanConfiguration {
         Config config = new Config();
         config.useSingleServer()
                 .setAddress("redis://127.0.0.1:6379")
-                .setUsername("admin")
-                .setPassword("Kerrie_1988")
+                .setConnectionPoolSize(100)
+//                .setUsername("admin")
+//                .setPassword("Kerrie_1988")
         return Redisson.create(config);
 
     }
