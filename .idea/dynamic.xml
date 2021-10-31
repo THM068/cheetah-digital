@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DynamicElementsStorage">
+    <option name="containingClasses">
+      <map>
+        <entry key="cheetah.digital.verticles.CheckExistenceVerticle">
+          <value>
+            <DClassElement>
+              <option name="name" value="cheetah.digital.verticles.CheckExistenceVerticle" />
+              <option name="myName" value="cheetah.digital.verticles.CheckExistenceVerticle" />
+              <option name="myMethods">
+                <set>
+                  <DMethodElement>
+                    <option name="name" value="createCustomer" />
+                    <option name="static" value="false" />
+                    <option name="type" value="cheetah.digital.model.Customer" />
+                    <option name="myPairs">
+                      <list>
+                        <ParamInfo>
+                          <option name="name" value="entries" />
+                          <option name="type" value="io.vertx.core.json.JsonObject" />
+                        </ParamInfo>
+                      </list>
+                    </option>
+                    <option name="myType" value="cheetah.digital.model.Customer" />
+                    <option name="myStatic" value="false" />
+                    <option name="myName" value="createCustomer" />
+                  </DMethodElement>
+                </set>
+              </option>
+            </DClassElement>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

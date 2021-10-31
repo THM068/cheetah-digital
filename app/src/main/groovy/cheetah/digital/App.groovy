@@ -7,6 +7,7 @@ import cheetah.digital.constants.DB
 import cheetah.digital.dao.CustomerRedissonRepository
 import cheetah.digital.model.Customer
 import cheetah.digital.services.BootStrapService
+import cheetah.digital.verticles.CheckExistenceVerticle
 import cheetah.digital.verticles.MainVerticle
 import groovy.transform.CompileStatic
 import io.micronaut.context.BeanContext
@@ -24,13 +25,9 @@ class App {
 
     static void main(String[] args) {
         loadData()
-        Vertx.vertx().deployVerticle(new MainVerticle(), App::getHandleDeployment)
-
-    //    Vertx.vertx().eventBus().<Customer>consumer(DB.getCUSTOMER_PROCESS_EVENT_BUS(), App::printCustomer)
-    }
-
-    static void printCustomer(Message<JsonObject> handler) {
-        //logger.info(handler.body().encodePrettily())
+        Vertx vertx = Vertx.vertx()
+        vertx.deployVerticle(new MainVerticle(), App::getHandleDeployment)
+        vertx.deployVerticle(new CheckExistenceVerticle())
     }
 
     static void getHandleDeployment(AsyncResult<String> handler) {

@@ -37,7 +37,7 @@ class MainVerticle extends AbstractVerticle {
         Queue<Customer> streamingQueue = redissonClient.getQueue(STREAMING_QUEUE)
         Customer customer = streamingQueue.poll()
         if(customer) {
-            Vertx.vertx().eventBus().publish(CUSTOMER_PROCESS_EVENT_BUS, this::createPayload)
+            vertx.eventBus().publish(CUSTOMER_PROCESS_EVENT_BUS, createPayload(customer))
         }
     }
 
@@ -49,6 +49,6 @@ class MainVerticle extends AbstractVerticle {
     }
 
     void stop() {
-        println("Closing the jedispool")
+        logger.info("Stopping MainVerticle...")
     }
 }

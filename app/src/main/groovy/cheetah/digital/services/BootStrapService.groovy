@@ -26,10 +26,10 @@ class BootStrapService {
             customerRedissonRepository.insert(customer);
         }
 
-       // RedissonClient redissonClient = customerRedissonRepository.redissonClient
-       // RQueue streamingQueue = redissonClient.getQueue(STREAMING_QUEUE)
-        //streamingQueue.clear()
-       // streamingQueue.addAll(streamingQueueList())
+        RedissonClient redissonClient = customerRedissonRepository.redissonClient
+        RQueue streamingQueue = redissonClient.getQueue(STREAMING_QUEUE)
+        streamingQueue.clear()
+        streamingQueue.addAll(streamingQueueList())
     }
 
     private List<Customer> customerList() {
