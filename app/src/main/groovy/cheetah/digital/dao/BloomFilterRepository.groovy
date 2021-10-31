@@ -1,4 +1,4 @@
-package cheetah.digital.repository
+package cheetah.digital.dao
 
 interface BloomFilterRepository <T> {
 
