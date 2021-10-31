@@ -1,18 +1,18 @@
 package cheetah.digital.dao
 
-import cheetah.digital.dao.utils.RedisSchema
 import cheetah.digital.model.Customer
 import groovy.transform.CompileStatic
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
-import org.redisson.api.RMap
+import static cheetah.digital.constants.DB.*
+import org.redisson.api.RQueue
 import org.redisson.api.RedissonClient
 
 @Singleton
 @CompileStatic
 class CustomerRedissonRepository implements Repository<Customer> {
 
-    static String CUSTOMER_MAP="customer-info-map"
+
     private final RedissonClient redissonClient
     private final CustomerBloomFilterRepository customerBloomFilterRepository
 
@@ -24,11 +24,14 @@ class CustomerRedissonRepository implements Repository<Customer> {
 
     @Override
     void insert(Customer customer) {
-        String hashKey = RedisSchema.getCustomerHashKey(customer.id)
-        RMap<String,Customer> customerMap = redissonClient.getMap(CUSTOMER_MAP)
-        customerMap.putIfAbsent(hashKey, customer)
+        RQueue<Customer> customerQueue = redissonClient.getQueue(CUSTOMER_QUEUE)
+        customerQueue.add(customer)
         if(!customerBloomFilterRepository.exists(customer) ) {
             customerBloomFilterRepository.addObject(customer)
         }
+    }
+
+    RedissonClient getRedissonClient() {
+        return this.redissonClient
     }
 }
