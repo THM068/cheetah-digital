@@ -50,6 +50,14 @@ application {
     mainClass = 'cheetah.digital.App'
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'cheetah.digital.App'
+        )
+    }
+}
+
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
