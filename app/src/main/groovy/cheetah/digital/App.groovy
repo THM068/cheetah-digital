@@ -30,7 +30,7 @@ class App {
 
     static void loadData() {
         BeanContext beanContext = BeanContext.run()
-        BootStrapService bootStrapService = beanContext.getBean(BootStrapService.class)
+       BootStrapService bootStrapService = beanContext.getBean(BootStrapService.class)
         bootStrapService.loadData()
         logger.info("Completed loading customer data to redis")
     }

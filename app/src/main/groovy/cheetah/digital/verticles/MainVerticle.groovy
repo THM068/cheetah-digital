@@ -1,17 +1,12 @@
 package cheetah.digital.verticles
 
-import cheetah.digital.constants.DB
-import cheetah.digital.dao.CustomerBloomFilterRepository
-import cheetah.digital.dao.CustomerRedissonRepository
+
 import cheetah.digital.model.Customer
 import groovy.transform.CompileStatic
 import io.micronaut.context.BeanContext
 import io.vertx.core.AbstractVerticle
-import io.vertx.core.Handler
 import io.vertx.core.Promise
-import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
-import org.redisson.api.RBucket
 import org.redisson.api.RedissonClient
 
 import java.util.logging.Logger
